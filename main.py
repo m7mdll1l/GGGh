@@ -1,5 +1,8 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, ContextTypes, filters
+import os
+import threading
+from flask import Flask
 
 OWNER_ID = 7236575607
 REPLY_TEXT = "تم إرسال رسالتك السرية بنجاح 📩"
@@ -24,24 +27,26 @@ async def forward_secret(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await msg.reply_text(REPLY_TEXT)
 
-if __name__ == "__main__":
-    import os
+# تشغيل البوت
+def run_bot():
     TOKEN = os.getenv("BOT_TOKEN")
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(MessageHandler(filters.ALL & ~filters.COMMAND, forward_secret))
     print("البوت يعمل الآن...")
     app.run_polling()
 
-from flask import Flask
-import os
+# تشغيل Flask لسيرفر وهمي (مطلوب لـ Render)
+flask_app = Flask(__name__)
 
-app = Flask(__name__)
-
-@app.route('/')
+@flask_app.route('/')
 def home():
     return 'Bot is running'
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
-    
+def run_flask():
+    port = int(os.environ.get("PORT", 5000))
+    flask_app.run(host="0.0.0.0", port=port)
+
+# تشغيل البوت و Flask معًا
+if __name__ == "__main__":
+    threading.Thread(target=run_bot).start()
+    run_flask()
