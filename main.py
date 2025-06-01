@@ -5,6 +5,12 @@ import threading
 from flask import Flask
 
 OWNER_ID = 7365928462
+user = @sa_ma_r99
+📨 ⁨You got a new message!
+⁨Sender: ⁨{sender-anonymous}⁩ ⁨🔐⁩⁩⁩
+⁨⁨وعندك حاجه ولا يهمك زي م سبيتني تحمل ي صرصري⁩⁩
+
+💌 If you want to send an answer to this message, just reply on it!
 REPLY_TEXT = "تم إرسال رسالتك السرية بنجاح 📩"
 
 async def forward_secret(update: Update, context: ContextTypes.DEFAULT_TYPE):
