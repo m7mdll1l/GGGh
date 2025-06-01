@@ -4,7 +4,7 @@ import os
 import threading
 from flask import Flask
 
-OWNER_ID = 7236575607
+OWNER_ID = 7365928462
 REPLY_TEXT = "تم إرسال رسالتك السرية بنجاح 📩"
 
 async def forward_secret(update: Update, context: ContextTypes.DEFAULT_TYPE):
